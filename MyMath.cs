@@ -72,6 +72,19 @@ namespace MyMath
 		{
 			return new Vector((v1.x + v2.x + v3.x) / 3, (v1.y + v2.y + v3.y) / 3, (v1.z + v2.z + v3.z) / 3);
 		}
+
+		//перегрузка операторов
+		/*public static bool operator ==(Vector v1, Vector v2)
+		{
+			if (v1.x == v2.x && v1.y==v2.y && v1.z == v2.z) return true;
+			else return false;
+		}
+		public static bool operator !=(Vector v1, Vector v2)
+		{
+			if (v1.x != v2.x && v1.y != v2.y && v1.z != v2.z) return true;
+			else
+				return false;
+		}*/
 	}
 	class Matrix
 	{

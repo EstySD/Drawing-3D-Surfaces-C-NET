@@ -24,12 +24,15 @@ namespace visualisation_lr1
         Color bColor = Color.Red;
 
         TrackHandler Xc, Yc, Zc, N1c, N2c, R1c, R2c, uMaxc, vMaxc, Rc, Gc, Bc;
+        TrackHandler XL, YL, ZL;
         int xOld, yOld, zOld;
 
-		MeshInfo meshInfo = new MeshInfo();
-		float[,] transformMatrix = Matrix.multiplyMatrix(Matrix.getScale(0.75f, 0.75f, 0.75f), Matrix.getUnit());
+		MeshInfo meshInfo = new MeshInfo();/*
+		float[,] transformMatrix = Matrix.multiplyMatrix(Matrix.getScale(0.75f, 0.75f, 0.75f), Matrix.getUnit());*/
+        float[,] transformMatrix = Matrix.getUnit();
 
-        surface surf = new surface(0, 360, -90, 90);
+
+		surface surf = new surface(0, 360, -90, 90);
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -46,8 +49,10 @@ namespace visualisation_lr1
             Rc = new TrackHandler(this, "R", 0, 255, 0);
             Gc = new TrackHandler(this, "G", 0, 255, 255);
             Bc = new TrackHandler(this, "B", 0, 255, 0);
-
-            foreach (Control c in this.groupBoxFill.Controls)
+			XL = new TrackHandler(this, "XL", -100, 100, 0);
+			YL = new TrackHandler(this, "YL", -100, 100, 0);
+			ZL = new TrackHandler(this, "ZL", -100, 100, 0);
+			foreach (Control c in this.groupBoxFill.Controls)
             {
                 RadioButton rb = c as RadioButton;
                 if (rb!=null) rb.CheckedChanged += rbUpdate;
@@ -93,12 +98,13 @@ namespace visualisation_lr1
 			render.updateColor(fColor, bColor);
 
 			Shader shader = new Shader(shadingSetting);
-			shader.updadeLight(new Vector(0,0,-2.5f));
+			shader.updadeLight(new Vector((float)XL.value/100, (float)YL.value / 100, 2.5f));
 			shader.updateLightStrength(0.1f, 1f, 1f);
 			shader.updateCamera(new Vector(0, 0, 0), new Vector(0, 0, -1));
 
-            render.renderPass(Renderer.CullSetting.BackFace, shader);
-            /* render.shader = shader;
+			render.renderPass(Renderer.CullSetting.FrontFace, shader);
+			render.renderPass(Renderer.CullSetting.BackFace, shader);
+			/* render.shader = shader;
              shader.updateClipSize(pictureBox1.Width, pictureBox1.Height);
              render.DrawTri(Color.Green, 
                  new Vector[3]
@@ -115,9 +121,9 @@ namespace visualisation_lr1
                      new Vector(0,0,-1)
                  }
                  );*/
-            /*render.DrawAxis(0.75f, 2);*/
-            //вывод
-            pictureBox1.Refresh();
+			/*render.DrawAxis(0.75f, 2);*/
+			//вывод
+			pictureBox1.Refresh();
             pictureBox1.Image = render.getImage();
             this.Update();
         }

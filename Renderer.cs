@@ -25,7 +25,8 @@ namespace RenderSpace
         public enum CullSetting {
             None,
             BackFace,
-            FrontFace
+            FrontFace,
+            All
         }
         public enum ShadingSetting
         {
@@ -73,7 +74,7 @@ namespace RenderSpace
         {
             this.shader = shader;
             shader.updateClipSize(bmp.Width, bmp.Height);
-
+            if (cull == Renderer.CullSetting.All) return;
             Vector[] triNormals = new Vector[indices.GetLength(0)];
             Vector[] verNormals = new Vector[vertices.Length];
             for (int i =0; i<verNormals.GetLength(0); i++) verNormals[i] = new Vector(0,0,0);
@@ -86,17 +87,18 @@ namespace RenderSpace
                 Vector t2 = vertices[indices[i, 1]];
                 Vector t3 = vertices[indices[i, 2]];
 
-                Vector normal = Vector.crossProduct(Vector.substract(t1, t3), Vector.substract(t1, t2)).normalise();
+                Vector normal = Vector.crossProduct(Vector.substract(t2, t3), Vector.substract(t1, t2)).normalise();
 
                 //backface
                 if (cull == CullSetting.FrontFace)normal = normal.scale(-1);
 
                 triNormals[i] = normal;
-                for (int j=0; j<3; j++)
-                {
-					verNormals[indices[i, j]] = Vector.add(verNormals[indices[i, j]], normal);
-					verTrisCount[indices[i, j]] += 1;
-				}
+				verNormals[indices[i, 0]] = Vector.add(verNormals[indices[i, 0]], normal);
+				verTrisCount[indices[i, 0]] += 1;
+				verNormals[indices[i, 1]] = Vector.add(verNormals[indices[i, 1]], normal);
+				verTrisCount[indices[i, 1]] += 1;
+				verNormals[indices[i, 2]] = Vector.add(verNormals[indices[i, 2]], normal);
+				verTrisCount[indices[i, 2]] += 1;
 			}
             //усреднение
             for (int i = 0; i < verNormals.Length; i++)
@@ -107,7 +109,7 @@ namespace RenderSpace
             for (int i = 0; i < indices.GetLength(0); i++)
             {
                 float cosAngle = Vector.dotProduct(triNormals[i], shader.cameraDir);
-                if (cosAngle < 0) continue;
+                if (cosAngle > 0) continue;
                 Color baseColor = fColor;
                 if (cull == CullSetting.FrontFace) baseColor = bColor;
                 DrawTri(baseColor,
