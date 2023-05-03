@@ -10,6 +10,10 @@ namespace MyMath
         {
             return Math.Min(Math.Max(num, min), max);
         }
+		public static int Clamp(int num, int min, int max)
+		{
+			return Math.Min(Math.Max(num, min), max);
+		}
 		public static float ConvertToRad(int angle)
 		{
 			return (float)(PI / 180 * Convert.ToDouble(angle));

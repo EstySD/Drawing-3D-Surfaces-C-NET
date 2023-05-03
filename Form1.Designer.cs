@@ -135,6 +135,25 @@
 			this.l_XL_Max = new System.Windows.Forms.Label();
 			this.l_XL_Min = new System.Windows.Forms.Label();
 			this.trackBarXL = new System.Windows.Forms.TrackBar();
+			this.groupBox23 = new System.Windows.Forms.GroupBox();
+			this.groupBox24 = new System.Windows.Forms.GroupBox();
+			this.numericUpDownCS = new System.Windows.Forms.NumericUpDown();
+			this.label4 = new System.Windows.Forms.Label();
+			this.l_CS_Max = new System.Windows.Forms.Label();
+			this.l_CS_Min = new System.Windows.Forms.Label();
+			this.trackBarCS = new System.Windows.Forms.TrackBar();
+			this.groupBox25 = new System.Windows.Forms.GroupBox();
+			this.numericUpDownCD = new System.Windows.Forms.NumericUpDown();
+			this.label11 = new System.Windows.Forms.Label();
+			this.l_CD_Max = new System.Windows.Forms.Label();
+			this.l_CD_Min = new System.Windows.Forms.Label();
+			this.trackBarCD = new System.Windows.Forms.TrackBar();
+			this.groupBox26 = new System.Windows.Forms.GroupBox();
+			this.numericUpDownCA = new System.Windows.Forms.NumericUpDown();
+			this.label14 = new System.Windows.Forms.Label();
+			this.l_CA_Max = new System.Windows.Forms.Label();
+			this.l_CA_Min = new System.Windows.Forms.Label();
+			this.trackBarCA = new System.Windows.Forms.TrackBar();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.groupBox1.SuspendLayout();
 			this.groupBox7.SuspendLayout();
@@ -189,6 +208,16 @@
 			this.groupBox22.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDownXL)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.trackBarXL)).BeginInit();
+			this.groupBox23.SuspendLayout();
+			this.groupBox24.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDownCS)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.trackBarCS)).BeginInit();
+			this.groupBox25.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDownCD)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.trackBarCD)).BeginInit();
+			this.groupBox26.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDownCA)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.trackBarCA)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// pictureBox1
@@ -196,7 +225,7 @@
 			this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Arrow;
 			this.pictureBox1.Location = new System.Drawing.Point(20, 12);
-			this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
 			this.pictureBox1.Name = "pictureBox1";
 			this.pictureBox1.Size = new System.Drawing.Size(508, 508);
 			this.pictureBox1.TabIndex = 0;
@@ -592,7 +621,7 @@
 			this.radioButtonFlat.AutoSize = true;
 			this.radioButtonFlat.Checked = true;
 			this.radioButtonFlat.Location = new System.Drawing.Point(4, 38);
-			this.radioButtonFlat.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.radioButtonFlat.Margin = new System.Windows.Forms.Padding(2);
 			this.radioButtonFlat.Name = "radioButtonFlat";
 			this.radioButtonFlat.Size = new System.Drawing.Size(42, 17);
 			this.radioButtonFlat.TabIndex = 17;
@@ -604,7 +633,7 @@
 			// 
 			this.radioButtonCarcass.AutoSize = true;
 			this.radioButtonCarcass.Location = new System.Drawing.Point(4, 17);
-			this.radioButtonCarcass.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.radioButtonCarcass.Margin = new System.Windows.Forms.Padding(2);
 			this.radioButtonCarcass.Name = "radioButtonCarcass";
 			this.radioButtonCarcass.Size = new System.Drawing.Size(62, 17);
 			this.radioButtonCarcass.TabIndex = 16;
@@ -619,9 +648,9 @@
 			this.groupBoxFill.Controls.Add(this.radioButtonCarcass);
 			this.groupBoxFill.Controls.Add(this.radioButtonFlat);
 			this.groupBoxFill.Location = new System.Drawing.Point(918, 12);
-			this.groupBoxFill.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.groupBoxFill.Margin = new System.Windows.Forms.Padding(2);
 			this.groupBoxFill.Name = "groupBoxFill";
-			this.groupBoxFill.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.groupBoxFill.Padding = new System.Windows.Forms.Padding(2);
 			this.groupBoxFill.Size = new System.Drawing.Size(420, 69);
 			this.groupBoxFill.TabIndex = 18;
 			this.groupBoxFill.TabStop = false;
@@ -631,7 +660,7 @@
 			// 
 			this.radioButtonPhong.AutoSize = true;
 			this.radioButtonPhong.Location = new System.Drawing.Point(166, 17);
-			this.radioButtonPhong.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.radioButtonPhong.Margin = new System.Windows.Forms.Padding(2);
 			this.radioButtonPhong.Name = "radioButtonPhong";
 			this.radioButtonPhong.Size = new System.Drawing.Size(53, 17);
 			this.radioButtonPhong.TabIndex = 20;
@@ -642,7 +671,7 @@
 			// 
 			this.radioButtonGouraud.AutoSize = true;
 			this.radioButtonGouraud.Location = new System.Drawing.Point(70, 38);
-			this.radioButtonGouraud.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.radioButtonGouraud.Margin = new System.Windows.Forms.Padding(2);
 			this.radioButtonGouraud.Name = "radioButtonGouraud";
 			this.radioButtonGouraud.Size = new System.Drawing.Size(48, 17);
 			this.radioButtonGouraud.TabIndex = 19;
@@ -653,7 +682,7 @@
 			// 
 			this.radioButtonFlatZ.AutoSize = true;
 			this.radioButtonFlatZ.Location = new System.Drawing.Point(70, 17);
-			this.radioButtonFlatZ.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.radioButtonFlatZ.Margin = new System.Windows.Forms.Padding(2);
 			this.radioButtonFlatZ.Name = "radioButtonFlatZ";
 			this.radioButtonFlatZ.Size = new System.Drawing.Size(92, 17);
 			this.radioButtonFlatZ.TabIndex = 18;
@@ -1157,7 +1186,7 @@
 			this.groupBox9.Size = new System.Drawing.Size(271, 243);
 			this.groupBox9.TabIndex = 25;
 			this.groupBox9.TabStop = false;
-			this.groupBox9.Text = "Положение света";
+			this.groupBox9.Text = "Положение источника света";
 			// 
 			// groupBox20
 			// 
@@ -1350,11 +1379,216 @@
 			this.trackBarXL.Size = new System.Drawing.Size(186, 45);
 			this.trackBarXL.TabIndex = 0;
 			// 
+			// groupBox23
+			// 
+			this.groupBox23.Controls.Add(this.groupBox24);
+			this.groupBox23.Controls.Add(this.groupBox25);
+			this.groupBox23.Controls.Add(this.groupBox26);
+			this.groupBox23.Location = new System.Drawing.Point(1092, 339);
+			this.groupBox23.Name = "groupBox23";
+			this.groupBox23.Size = new System.Drawing.Size(271, 243);
+			this.groupBox23.TabIndex = 26;
+			this.groupBox23.TabStop = false;
+			this.groupBox23.Text = "Параметры модели освещения";
+			// 
+			// groupBox24
+			// 
+			this.groupBox24.Controls.Add(this.numericUpDownCS);
+			this.groupBox24.Controls.Add(this.label4);
+			this.groupBox24.Controls.Add(this.l_CS_Max);
+			this.groupBox24.Controls.Add(this.l_CS_Min);
+			this.groupBox24.Controls.Add(this.trackBarCS);
+			this.groupBox24.Location = new System.Drawing.Point(6, 167);
+			this.groupBox24.Name = "groupBox24";
+			this.groupBox24.Size = new System.Drawing.Size(257, 68);
+			this.groupBox24.TabIndex = 16;
+			this.groupBox24.TabStop = false;
+			// 
+			// numericUpDownCS
+			// 
+			this.numericUpDownCS.Location = new System.Drawing.Point(198, 27);
+			this.numericUpDownCS.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+			this.numericUpDownCS.Name = "numericUpDownCS";
+			this.numericUpDownCS.Size = new System.Drawing.Size(45, 20);
+			this.numericUpDownCS.TabIndex = 6;
+			// 
+			// label4
+			// 
+			this.label4.AutoSize = true;
+			this.label4.Location = new System.Drawing.Point(26, 9);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(147, 13);
+			this.label4.TabIndex = 5;
+			this.label4.Text = "Зеркальная составляющая";
+			// 
+			// l_CS_Max
+			// 
+			this.l_CS_Max.AutoSize = true;
+			this.l_CS_Max.Location = new System.Drawing.Point(170, 9);
+			this.l_CS_Max.Name = "l_CS_Max";
+			this.l_CS_Max.Size = new System.Drawing.Size(25, 13);
+			this.l_CS_Max.TabIndex = 2;
+			this.l_CS_Max.Text = "255";
+			// 
+			// l_CS_Min
+			// 
+			this.l_CS_Min.AutoSize = true;
+			this.l_CS_Min.Location = new System.Drawing.Point(7, 9);
+			this.l_CS_Min.Name = "l_CS_Min";
+			this.l_CS_Min.Size = new System.Drawing.Size(13, 13);
+			this.l_CS_Min.TabIndex = 1;
+			this.l_CS_Min.Text = "0";
+			// 
+			// trackBarCS
+			// 
+			this.trackBarCS.LargeChange = 10;
+			this.trackBarCS.Location = new System.Drawing.Point(6, 27);
+			this.trackBarCS.Maximum = 100;
+			this.trackBarCS.Minimum = -100;
+			this.trackBarCS.Name = "trackBarCS";
+			this.trackBarCS.Size = new System.Drawing.Size(187, 45);
+			this.trackBarCS.TabIndex = 0;
+			// 
+			// groupBox25
+			// 
+			this.groupBox25.Controls.Add(this.numericUpDownCD);
+			this.groupBox25.Controls.Add(this.label11);
+			this.groupBox25.Controls.Add(this.l_CD_Max);
+			this.groupBox25.Controls.Add(this.l_CD_Min);
+			this.groupBox25.Controls.Add(this.trackBarCD);
+			this.groupBox25.Location = new System.Drawing.Point(5, 93);
+			this.groupBox25.Name = "groupBox25";
+			this.groupBox25.Size = new System.Drawing.Size(257, 68);
+			this.groupBox25.TabIndex = 15;
+			this.groupBox25.TabStop = false;
+			// 
+			// numericUpDownCD
+			// 
+			this.numericUpDownCD.Location = new System.Drawing.Point(199, 27);
+			this.numericUpDownCD.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+			this.numericUpDownCD.Name = "numericUpDownCD";
+			this.numericUpDownCD.Size = new System.Drawing.Size(45, 20);
+			this.numericUpDownCD.TabIndex = 6;
+			this.numericUpDownCD.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+			// 
+			// label11
+			// 
+			this.label11.AutoSize = true;
+			this.label11.Location = new System.Drawing.Point(26, 11);
+			this.label11.Name = "label11";
+			this.label11.Size = new System.Drawing.Size(146, 13);
+			this.label11.TabIndex = 5;
+			this.label11.Text = "Диффузная составляющая";
+			// 
+			// l_CD_Max
+			// 
+			this.l_CD_Max.AutoSize = true;
+			this.l_CD_Max.Location = new System.Drawing.Point(170, 9);
+			this.l_CD_Max.Name = "l_CD_Max";
+			this.l_CD_Max.Size = new System.Drawing.Size(25, 13);
+			this.l_CD_Max.TabIndex = 2;
+			this.l_CD_Max.Text = "255";
+			// 
+			// l_CD_Min
+			// 
+			this.l_CD_Min.AutoSize = true;
+			this.l_CD_Min.Location = new System.Drawing.Point(7, 9);
+			this.l_CD_Min.Name = "l_CD_Min";
+			this.l_CD_Min.Size = new System.Drawing.Size(13, 13);
+			this.l_CD_Min.TabIndex = 1;
+			this.l_CD_Min.Text = "0";
+			// 
+			// trackBarCD
+			// 
+			this.trackBarCD.LargeChange = 10;
+			this.trackBarCD.Location = new System.Drawing.Point(6, 27);
+			this.trackBarCD.Maximum = 100;
+			this.trackBarCD.Minimum = -100;
+			this.trackBarCD.Name = "trackBarCD";
+			this.trackBarCD.Size = new System.Drawing.Size(187, 45);
+			this.trackBarCD.TabIndex = 0;
+			// 
+			// groupBox26
+			// 
+			this.groupBox26.Controls.Add(this.numericUpDownCA);
+			this.groupBox26.Controls.Add(this.label14);
+			this.groupBox26.Controls.Add(this.l_CA_Max);
+			this.groupBox26.Controls.Add(this.l_CA_Min);
+			this.groupBox26.Controls.Add(this.trackBarCA);
+			this.groupBox26.Location = new System.Drawing.Point(6, 19);
+			this.groupBox26.Name = "groupBox26";
+			this.groupBox26.Size = new System.Drawing.Size(256, 68);
+			this.groupBox26.TabIndex = 14;
+			this.groupBox26.TabStop = false;
+			// 
+			// numericUpDownCA
+			// 
+			this.numericUpDownCA.Location = new System.Drawing.Point(198, 28);
+			this.numericUpDownCA.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+			this.numericUpDownCA.Name = "numericUpDownCA";
+			this.numericUpDownCA.Size = new System.Drawing.Size(45, 20);
+			this.numericUpDownCA.TabIndex = 6;
+			// 
+			// label14
+			// 
+			this.label14.AutoSize = true;
+			this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.label14.Location = new System.Drawing.Point(26, 12);
+			this.label14.Name = "label14";
+			this.label14.Size = new System.Drawing.Size(138, 12);
+			this.label14.TabIndex = 5;
+			this.label14.Text = "Рассеивающая составляющая";
+			// 
+			// l_CA_Max
+			// 
+			this.l_CA_Max.AutoSize = true;
+			this.l_CA_Max.Location = new System.Drawing.Point(169, 9);
+			this.l_CA_Max.Name = "l_CA_Max";
+			this.l_CA_Max.Size = new System.Drawing.Size(25, 13);
+			this.l_CA_Max.TabIndex = 2;
+			this.l_CA_Max.Text = "255";
+			// 
+			// l_CA_Min
+			// 
+			this.l_CA_Min.AutoSize = true;
+			this.l_CA_Min.Location = new System.Drawing.Point(7, 9);
+			this.l_CA_Min.Name = "l_CA_Min";
+			this.l_CA_Min.Size = new System.Drawing.Size(13, 13);
+			this.l_CA_Min.TabIndex = 1;
+			this.l_CA_Min.Text = "0";
+			// 
+			// trackBarCA
+			// 
+			this.trackBarCA.LargeChange = 10;
+			this.trackBarCA.Location = new System.Drawing.Point(6, 27);
+			this.trackBarCA.Maximum = 100;
+			this.trackBarCA.Minimum = -100;
+			this.trackBarCA.Name = "trackBarCA";
+			this.trackBarCA.Size = new System.Drawing.Size(186, 45);
+			this.trackBarCA.TabIndex = 0;
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1367, 586);
+			this.Controls.Add(this.groupBox23);
 			this.Controls.Add(this.groupBox9);
 			this.Controls.Add(this.groupBox11);
 			this.Controls.Add(this.groupBox16);
@@ -1365,7 +1599,7 @@
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.pictureBox1);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-			this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.Margin = new System.Windows.Forms.Padding(2);
 			this.MaximizeBox = false;
 			this.Name = "Form1";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -1441,6 +1675,19 @@
 			this.groupBox22.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDownXL)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.trackBarXL)).EndInit();
+			this.groupBox23.ResumeLayout(false);
+			this.groupBox24.ResumeLayout(false);
+			this.groupBox24.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDownCS)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.trackBarCS)).EndInit();
+			this.groupBox25.ResumeLayout(false);
+			this.groupBox25.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDownCD)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.trackBarCD)).EndInit();
+			this.groupBox26.ResumeLayout(false);
+			this.groupBox26.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDownCA)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.trackBarCA)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -1554,6 +1801,25 @@
 		private System.Windows.Forms.Label l_XL_Max;
 		private System.Windows.Forms.Label l_XL_Min;
 		private System.Windows.Forms.TrackBar trackBarXL;
+		private System.Windows.Forms.GroupBox groupBox23;
+		private System.Windows.Forms.GroupBox groupBox24;
+		private System.Windows.Forms.NumericUpDown numericUpDownCS;
+		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.Label l_CS_Max;
+		private System.Windows.Forms.Label l_CS_Min;
+		private System.Windows.Forms.TrackBar trackBarCS;
+		private System.Windows.Forms.GroupBox groupBox25;
+		private System.Windows.Forms.NumericUpDown numericUpDownCD;
+		private System.Windows.Forms.Label label11;
+		private System.Windows.Forms.Label l_CD_Max;
+		private System.Windows.Forms.Label l_CD_Min;
+		private System.Windows.Forms.TrackBar trackBarCD;
+		private System.Windows.Forms.GroupBox groupBox26;
+		private System.Windows.Forms.NumericUpDown numericUpDownCA;
+		private System.Windows.Forms.Label label14;
+		private System.Windows.Forms.Label l_CA_Max;
+		private System.Windows.Forms.Label l_CA_Min;
+		private System.Windows.Forms.TrackBar trackBarCA;
 	}
 }
 

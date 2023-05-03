@@ -15,6 +15,13 @@ namespace Mesh
 		int N1, N2;
 		float uMin, uMax, vMax, vMin, R1, R2;
 		surface surf;
+		public enum MeshType
+		{
+			Cube,
+			Sphere,
+			Torus,
+			Mebious
+		}
 		public void setSettings(surface surf, int N1, int N2, float R1, float R2)
 		{
 			this.surf = surf;
@@ -30,10 +37,15 @@ namespace Mesh
 			this.vMin = vMin;
 			this.vMax = vMax;
 		}
-		public void calculate()
+		public void calculate(MeshType meshType)
 		{
 			vertices = new Vector[(N1 + 1) * (N2 + 1)];
 			indices = new int[(N1) * (N2) * 2, 3];
+			if (meshType == MeshType.Cube)
+			{
+				calculateCube();
+				return;
+			}
 			float u = uMin;
 			float v = vMin;
 			float du = (float)(uMax - uMin) / N1;
@@ -44,7 +56,7 @@ namespace Mesh
 				for (int n1 = 0; n1 < N1 + 1; n1++)
 				{
 					int curIndex = n1 + (N1 + 1) * n2;
-					Vector f = surf.sphere(u, v);
+					Vector f = surf.calculate(meshType, u, v);
 					vertices[curIndex] = new Vector(
 						f.x * R1,
 						f.y * R1,
@@ -75,7 +87,7 @@ namespace Mesh
 				}
 			}
 		}
-		public void calculateCube()
+		private void calculateCube()
 		{
 			//куб
 			vertices = new Vector[8]{
@@ -123,6 +135,8 @@ namespace Mesh
 	{
 
 		public int vmin, vmax, umin, umax;
+		float u;
+		float v;
 		public surface(int umin, int umax, int vmin, int vmax)
 		{
 			this.umin = umin;
@@ -130,21 +144,35 @@ namespace Mesh
 			this.vmin = vmin;
 			this.vmax = vmax;
 		}
-		public Vector sphere(float u, float v)
+		public Vector calculate(Mesh.MeshInfo.MeshType meshType, float u, float v)
+		{
+			this.u = u;
+			this.v = v;
+			switch (meshType)
+			{
+				case MeshInfo.MeshType.Sphere:
+					return sphere();
+				case MeshInfo.MeshType.Torus: return torus();
+				case MeshInfo.MeshType.Mebious: return mebious();
+
+			}
+			return sphere();
+		}
+		private Vector sphere()
 		{
 			return new Vector(
 				(float)((Math.Cos(u) * Math.Cos(v))),
 				(float)(Math.Sin(u) * Math.Cos(v)),
 				(float)Math.Sin(v));
 		}
-		public Vector torus(float u, float v)
+		private Vector torus()
 		{
 			return new Vector(
 				(float)((Math.Cos(u) * (Math.Cos(v) + 3.0f))),
 				(float)((Math.Sin(u) * (Math.Cos(v) + 3.0f))),
 				(float)Math.Sin(v));
 		}
-		public Vector mebious(float u, float v)
+		private Vector mebious()
 		{
 			return new Vector(
 				(float)((1 + v / 2 * Math.Cos(u / 2)) * Math.Cos(u)),

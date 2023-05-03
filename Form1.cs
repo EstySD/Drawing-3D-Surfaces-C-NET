@@ -17,7 +17,7 @@ namespace visualisation_lr1
             InitializeComponent();
         }
 
-        Renderer.ShadingSetting shadingSetting = Renderer.ShadingSetting.Flat;
+        Shader.ShadingSetting shadingSetting = Shader.ShadingSetting.Flat;
         bool fColorChoosed = true;
 
         Color fColor;
@@ -25,7 +25,8 @@ namespace visualisation_lr1
 
         TrackHandler Xc, Yc, Zc, N1c, N2c, R1c, R2c, uMaxc, vMaxc, Rc, Gc, Bc;
         TrackHandler XL, YL, ZL;
-        int xOld, yOld, zOld;
+		TrackHandler CA, CD, CS;
+		int xOld, yOld, zOld;
 
 		MeshInfo meshInfo = new MeshInfo();/*
 		float[,] transformMatrix = Matrix.multiplyMatrix(Matrix.getScale(0.75f, 0.75f, 0.75f), Matrix.getUnit());*/
@@ -49,9 +50,14 @@ namespace visualisation_lr1
             Rc = new TrackHandler(this, "R", 0, 255, 0);
             Gc = new TrackHandler(this, "G", 0, 255, 255);
             Bc = new TrackHandler(this, "B", 0, 255, 0);
+
 			XL = new TrackHandler(this, "XL", -100, 100, 0);
 			YL = new TrackHandler(this, "YL", -100, 100, 0);
 			ZL = new TrackHandler(this, "ZL", -100, 100, 0);
+
+			CA = new TrackHandler(this, "CA", 0, 100, 10);
+			CD = new TrackHandler(this, "CD", 0, 100, 50);
+			CS = new TrackHandler(this, "CS", 0, 100, 10);
 			foreach (Control c in this.groupBoxFill.Controls)
             {
                 RadioButton rb = c as RadioButton;
@@ -74,7 +80,7 @@ namespace visualisation_lr1
             meshInfo.setInterval(BaseMath.ConvertToRad(surf.umin), BaseMath.ConvertToRad(uMaxc.value),
 				BaseMath.ConvertToRad(surf.vmin), BaseMath.ConvertToRad(vMaxc.value));
             meshInfo.setSettings(surf, N1c.value, N2c.value, (float)(R1c.value) / 100, (float)(R2c.value) / 100);
-            meshInfo.calculate();
+            meshInfo.calculate(MeshInfo.MeshType.Sphere);
 
 			Vector[] vertices = meshInfo.getVertices();
             int[,] indices = meshInfo.getIndices();
@@ -98,30 +104,14 @@ namespace visualisation_lr1
 			render.updateColor(fColor, bColor);
 
 			Shader shader = new Shader(shadingSetting);
-			shader.updadeLight(new Vector((float)XL.value/100, (float)YL.value / 100, 2.5f));
-			shader.updateLightStrength(0.1f, 1f, 1f);
+			shader.updadeLight(new Vector((float)XL.value/100, (float)YL.value / 100, 2f+ (float)ZL.value / 100));
+			shader.updateLightStrength((float)CA.value/100, (float)CD.value / 100, (float)CS.value / 100);
 			shader.updateCamera(new Vector(0, 0, 0), new Vector(0, 0, -1));
 
 			render.renderPass(Renderer.CullSetting.FrontFace, shader);
 			render.renderPass(Renderer.CullSetting.BackFace, shader);
-			/* render.shader = shader;
-             shader.updateClipSize(pictureBox1.Width, pictureBox1.Height);
-             render.DrawTri(Color.Green, 
-                 new Vector[3]
-                 {
-                     new Vector(0, 0.5f, 0),
-                     new Vector(0, 0, 0),
-                     new Vector(0.5f,-0.25f,0)
-                 },
-                 new Vector(0,0,-1),
-                 new Vector[3]
-                 {
-                     new Vector(0,0,-1),
-                     new Vector(0,0,-1),
-                     new Vector(0,0,-1)
-                 }
-                 );*/
-			/*render.DrawAxis(0.75f, 2);*/
+			
+			render.DrawAxis(0.75f, 2);
 			//вывод
 			pictureBox1.Refresh();
             pictureBox1.Image = render.getImage();
@@ -155,19 +145,19 @@ namespace visualisation_lr1
             {
                 switch (btn.Name) {
                     case "radioButtonCarcass":
-                        shadingSetting = Renderer.ShadingSetting.Carcass;
+                        shadingSetting = Shader.ShadingSetting.Carcass;
                         break;
                     case "radioButtonFlat":
-						shadingSetting = Renderer.ShadingSetting.Flat;
+						shadingSetting = Shader.ShadingSetting.Flat;
 						break;
                     case "radioButtonFlatZ":
-						shadingSetting = Renderer.ShadingSetting.FlatZ;
+						shadingSetting = Shader.ShadingSetting.FlatZ;
 						break;
                     case "radioButtonGouraud":
-						shadingSetting = Renderer.ShadingSetting.Gouraud;
+						shadingSetting = Shader.ShadingSetting.Gouraud;
 						break;
 					case "radioButtonPhong":
-						shadingSetting = Renderer.ShadingSetting.Phong;
+						shadingSetting = Shader.ShadingSetting.Phong;
 						break;
 
 				}

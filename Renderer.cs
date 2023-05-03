@@ -28,14 +28,7 @@ namespace RenderSpace
             FrontFace,
             All
         }
-        public enum ShadingSetting
-        {
-			Carcass,
-            Flat,
-            FlatZ,
-			Gouraud,
-            Phong
-		}
+        
         //for tris
         BitmapData bmpData;
         byte[] rgbValues;
@@ -43,6 +36,7 @@ namespace RenderSpace
         IntPtr ptr;
         int bytes;
 
+		float[,] ZBUFFER;
         public Shader shader;
 		public Renderer(int width, int height)
         {
@@ -59,6 +53,9 @@ namespace RenderSpace
 			bytes = realStride * bmpData.Height * bmpData.Width;
 			rgbValues = new byte[bytes];
 
+			float drawDistance = 1000;
+			ZBUFFER = new float[width, height];
+			for (int i = 0; i < width; i++) for(int j=0; j<height; j++) ZBUFFER[i,j] = -drawDistance;
 		}
         public void updateData(Vector[] vertices, int[,] indices)
         {
@@ -108,8 +105,7 @@ namespace RenderSpace
             //прорисовка треугольников
             for (int i = 0; i < indices.GetLength(0); i++)
             {
-                float cosAngle = Vector.dotProduct(triNormals[i], shader.cameraDir);
-                if (cosAngle > 0) continue;
+                if (Vector.dotProduct(triNormals[i], shader.cameraDir) > 0) continue;
                 Color baseColor = fColor;
                 if (cull == CullSetting.FrontFace) baseColor = bColor;
                 DrawTri(baseColor,
@@ -127,7 +123,27 @@ namespace RenderSpace
 					}
 					);
 			}
-            
+            /*Parallel.For(0, indices.GetLength(0),
+                i =>
+                {
+					if (Vector.dotProduct(triNormals[i], shader.cameraDir) > 0) return;
+					Color baseColor = fColor;
+					if (cull == CullSetting.FrontFace) baseColor = bColor;
+					DrawTri(baseColor,
+						new Vector[3]{
+					vertices[indices[i, 0]],
+					vertices[indices[i, 1]],
+					vertices[indices[i, 2]]
+						},
+						triNormals[i],
+						new Vector[3]
+						{
+						verNormals[indices[i, 0]],
+						verNormals[indices[i, 1]],
+						verNormals[indices[i, 2]]
+						}
+						);
+				});*/
 
 		}
         private void SetPixel(int i, int j, Color fragmentColor)
@@ -156,6 +172,7 @@ namespace RenderSpace
 			//верхняя часть треугольника
 			for (int i = y0; i < y1; i++)
             {
+				if (i < 0 || i >= bmpData.Height) continue;
 				int xBorder01 = (i - y0) * (x0 - x1) / (y0 - y1) + x0;
                 int xBorder02 = (i - y0) * (x0 - x2) / (y0 - y2) + x0;
                 if (xBorder01 > xBorder02)
@@ -165,7 +182,7 @@ namespace RenderSpace
                     xBorder02 = temp;
 				}
                 xBorder01 = Math.Max(xBorder01, 0);
-                xBorder02 = Math.Min(xBorder02, bmpData.Width);
+                xBorder02 = Math.Min(xBorder02, bmpData.Width-1);
                
 				for (int j = xBorder01; j <= xBorder02; j++)
                 {
@@ -176,8 +193,9 @@ namespace RenderSpace
             }
             //нижняя часть треугольника
             for (int i = y1; i < y2; i++)
-            {
-                int xBorder02 = (i - y2) * (x2 - x0) / (y2 - y0) + x2;
+			{
+				if (i < 0 || i >= bmpData.Height) continue;
+				int xBorder02 = (i - y2) * (x2 - x0) / (y2 - y0) + x2;
                 int xBorder12 = (i - y2) * (x2 - x1) / (y2 - y1) + x2;
                 if (xBorder02 > xBorder12)
                 {
@@ -187,7 +205,7 @@ namespace RenderSpace
 				}
 
 				xBorder02 = Math.Max(xBorder02, 0);
-				xBorder12 = Math.Min(xBorder12, bmpData.Width);
+				xBorder12 = Math.Min(xBorder12, bmpData.Width-1);
 				
 				for (int j = xBorder02; j <= xBorder12; j++)
                 {
@@ -200,12 +218,12 @@ namespace RenderSpace
 
 		public void DrawAxis(float lineLength, int thickness)
         {
-            Vector triNormal = new Vector(0,0,-1);
+            Vector triNormal = new Vector(0,0,1);
             Vector[] normals = new Vector[3]
             {
-                new Vector(0,0,-1),
-                new Vector(0,0,-1),
-                new Vector(0,0,-1),
+                new Vector(0,0,1),
+                new Vector(0,0,1),
+                new Vector(0,0,1),
             };
 			DrawTri(
                 Color.FromArgb(255, 255, 0, 0),
