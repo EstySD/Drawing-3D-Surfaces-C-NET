@@ -70,7 +70,6 @@
 			this.groupBoxFill = new System.Windows.Forms.GroupBox();
 			this.radioButtonPhong = new System.Windows.Forms.RadioButton();
 			this.radioButtonGouraud = new System.Windows.Forms.RadioButton();
-			this.radioButtonFlatZ = new System.Windows.Forms.RadioButton();
 			this.groupBox10 = new System.Windows.Forms.GroupBox();
 			this.groupBox15 = new System.Windows.Forms.GroupBox();
 			this.numericUpDownR2 = new System.Windows.Forms.NumericUpDown();
@@ -644,14 +643,13 @@
 			// 
 			this.groupBoxFill.Controls.Add(this.radioButtonPhong);
 			this.groupBoxFill.Controls.Add(this.radioButtonGouraud);
-			this.groupBoxFill.Controls.Add(this.radioButtonFlatZ);
 			this.groupBoxFill.Controls.Add(this.radioButtonCarcass);
 			this.groupBoxFill.Controls.Add(this.radioButtonFlat);
 			this.groupBoxFill.Location = new System.Drawing.Point(918, 12);
 			this.groupBoxFill.Margin = new System.Windows.Forms.Padding(2);
 			this.groupBoxFill.Name = "groupBoxFill";
 			this.groupBoxFill.Padding = new System.Windows.Forms.Padding(2);
-			this.groupBoxFill.Size = new System.Drawing.Size(420, 69);
+			this.groupBoxFill.Size = new System.Drawing.Size(145, 69);
 			this.groupBoxFill.TabIndex = 18;
 			this.groupBoxFill.TabStop = false;
 			this.groupBoxFill.Text = "Закраска";
@@ -659,7 +657,7 @@
 			// radioButtonPhong
 			// 
 			this.radioButtonPhong.AutoSize = true;
-			this.radioButtonPhong.Location = new System.Drawing.Point(166, 17);
+			this.radioButtonPhong.Location = new System.Drawing.Point(70, 17);
 			this.radioButtonPhong.Margin = new System.Windows.Forms.Padding(2);
 			this.radioButtonPhong.Name = "radioButtonPhong";
 			this.radioButtonPhong.Size = new System.Drawing.Size(53, 17);
@@ -677,17 +675,6 @@
 			this.radioButtonGouraud.TabIndex = 19;
 			this.radioButtonGouraud.Text = "Гуро";
 			this.radioButtonGouraud.UseVisualStyleBackColor = true;
-			// 
-			// radioButtonFlatZ
-			// 
-			this.radioButtonFlatZ.AutoSize = true;
-			this.radioButtonFlatZ.Location = new System.Drawing.Point(70, 17);
-			this.radioButtonFlatZ.Margin = new System.Windows.Forms.Padding(2);
-			this.radioButtonFlatZ.Name = "radioButtonFlatZ";
-			this.radioButtonFlatZ.Size = new System.Drawing.Size(92, 17);
-			this.radioButtonFlatZ.TabIndex = 18;
-			this.radioButtonFlatZ.Text = "Flat c УНЛиП";
-			this.radioButtonFlatZ.UseVisualStyleBackColor = true;
 			// 
 			// groupBox10
 			// 
@@ -1781,7 +1768,6 @@
         private System.Windows.Forms.NumericUpDown numericUpDownG;
 		private System.Windows.Forms.RadioButton radioButtonPhong;
 		private System.Windows.Forms.RadioButton radioButtonGouraud;
-		private System.Windows.Forms.RadioButton radioButtonFlatZ;
 		private System.Windows.Forms.GroupBox groupBox9;
 		private System.Windows.Forms.GroupBox groupBox20;
 		private System.Windows.Forms.NumericUpDown numericUpDownZL;

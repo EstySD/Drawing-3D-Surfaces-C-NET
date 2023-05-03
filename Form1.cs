@@ -28,12 +28,11 @@ namespace visualisation_lr1
 		TrackHandler CA, CD, CS;
 		int xOld, yOld, zOld;
 
-		MeshInfo meshInfo = new MeshInfo();/*
-		float[,] transformMatrix = Matrix.multiplyMatrix(Matrix.getScale(0.75f, 0.75f, 0.75f), Matrix.getUnit());*/
-        float[,] transformMatrix = Matrix.getUnit();
+		MeshInfo meshInfo = new MeshInfo();
+        float[,] transformMatrix = Matrix.multiplyMatrix(Matrix.getScale(0.25f, 0.25f, 0.25f), Matrix.getUnit());
 
 
-		surface surf = new surface(0, 360, -90, 90);
+        surface surf = new surface(0, 360, 0, 360);
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -41,8 +40,8 @@ namespace visualisation_lr1
             Xc = new TrackHandler(this, "X", -180, 180, 0);
             Yc = new TrackHandler(this, "Y", -180, 180, 0);
             Zc = new TrackHandler(this, "Z", -180, 180, 0);
-            N1c = new TrackHandler(this, "N1", 4, 100, 4);
-            N2c = new TrackHandler(this, "N2", 4, 100, 4);
+            N1c = new TrackHandler(this, "N1", 4, 100, 10);
+            N2c = new TrackHandler(this, "N2", 4, 100, 10);
             R1c = new TrackHandler(this, "R1", 10, 100, 100);
             R2c = new TrackHandler(this, "R2", 10, 100, 100);
             uMaxc = new TrackHandler(this, "UMax", surf.umin, surf.umax, surf.umax);
@@ -76,20 +75,19 @@ namespace visualisation_lr1
 				frontColorButton.BackColor = fColor = color;
             else backColorButton.BackColor = bColor = color;
 
-			//
+			//MESH
             meshInfo.setInterval(BaseMath.ConvertToRad(surf.umin), BaseMath.ConvertToRad(uMaxc.value),
 				BaseMath.ConvertToRad(surf.vmin), BaseMath.ConvertToRad(vMaxc.value));
             meshInfo.setSettings(surf, N1c.value, N2c.value, (float)(R1c.value) / 100, (float)(R2c.value) / 100);
-            meshInfo.calculate(MeshInfo.MeshType.Sphere);
+            meshInfo.calculate(MeshInfo.MeshType.Torus);
 
 			Vector[] vertices = meshInfo.getVertices();
             int[,] indices = meshInfo.getIndices();
-			// matrix transf
+			// MATRIX
 			transformMatrix = Matrix.multiplyMatrix(Matrix.getRotation(Xc.value - xOld, Matrix.Axis.X), transformMatrix);
             transformMatrix = Matrix.multiplyMatrix(Matrix.getRotation(Yc.value - yOld, Matrix.Axis.Y), transformMatrix);
             transformMatrix = Matrix.multiplyMatrix(Matrix.getRotation(Zc.value - zOld, Matrix.Axis.Z), transformMatrix);
 			xOld = Xc.value; yOld = Yc.value; zOld = Zc.value;
-			/*transformMatrix = Matrix.multiplyMatrix(Matrix.getViewMatrix(new Vector(0, 0, 3), new Vector(0, 0, 0), new Vector(0, 1, 0)), transformMatrix);*/
 
 			Vector[] transVertices = new Vector[vertices.Length];
             for (int i = 0; i < vertices.Length; i++)
@@ -97,7 +95,7 @@ namespace visualisation_lr1
                 transVertices[i] = Matrix.multiplyVector(transformMatrix, vertices[i]);
             }
 
-            //визуализация
+            //VIS
 
             Renderer render = new Renderer(pictureBox1.Width, pictureBox1.Height);
 			render.updateData(transVertices, indices);
@@ -110,7 +108,6 @@ namespace visualisation_lr1
 
 			render.renderPass(Renderer.CullSetting.FrontFace, shader);
 			render.renderPass(Renderer.CullSetting.BackFace, shader);
-			
 			render.DrawAxis(0.75f, 2);
 			//вывод
 			pictureBox1.Refresh();
@@ -149,9 +146,6 @@ namespace visualisation_lr1
                         break;
                     case "radioButtonFlat":
 						shadingSetting = Shader.ShadingSetting.Flat;
-						break;
-                    case "radioButtonFlatZ":
-						shadingSetting = Shader.ShadingSetting.FlatZ;
 						break;
                     case "radioButtonGouraud":
 						shadingSetting = Shader.ShadingSetting.Gouraud;

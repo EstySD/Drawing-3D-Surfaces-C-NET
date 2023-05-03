@@ -146,14 +146,16 @@ namespace RenderSpace
 				});*/
 
 		}
-        private void SetPixel(int i, int j, Color fragmentColor)
+        private void SetPixel(int i, int j, Shader.Fragment fragment)
 		{
+			if (fragment.ZValue < ZBUFFER[i, j]) return;
+			ZBUFFER[i,j]= fragment.ZValue;
 			int counter = (i * bmpData.Width + j);
 			int curPixel = counter * realStride;
-			rgbValues[curPixel] = fragmentColor.B;
-			rgbValues[curPixel + 1] = fragmentColor.G;
-			rgbValues[curPixel + 2] = fragmentColor.R;
-			rgbValues[curPixel + 3] = fragmentColor.A;
+			rgbValues[curPixel] = fragment.color.B;
+			rgbValues[curPixel + 1] = fragment.color.G;
+			rgbValues[curPixel + 2] = fragment.color.R;
+			rgbValues[curPixel + 3] = fragment.color.A;
 
 		}
         public void DrawTri(Color baseColor, Vector[] vertices, Vector triNormal, Vector[] normals)
@@ -184,10 +186,11 @@ namespace RenderSpace
                 xBorder01 = Math.Max(xBorder01, 0);
                 xBorder02 = Math.Min(xBorder02, bmpData.Width-1);
                
+				
 				for (int j = xBorder01; j <= xBorder02; j++)
                 {
 
-					Color fragmentColor = shader.fragmentShader(new Point(j, i), xBorder01, xBorder02); /// J-X, I-Y
+					Shader.Fragment fragmentColor = shader.fragmentShader(new Point(j, i), xBorder01, xBorder02); /// J-X, I-Y
                     SetPixel(i, j, fragmentColor);
                 }
             }
@@ -210,7 +213,7 @@ namespace RenderSpace
 				for (int j = xBorder02; j <= xBorder12; j++)
                 {
 
-					Color fragmentColor = shader.fragmentShader(new Point(j, i), xBorder02, xBorder12); /// J-X, I-Y
+					Shader.Fragment fragmentColor = shader.fragmentShader(new Point(j, i), xBorder02, xBorder12); /// J-X, I-Y
 					SetPixel(i, j, fragmentColor);
 				}
             }

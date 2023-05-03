@@ -5,7 +5,7 @@ using static MyMath.Matrix;
 namespace MyMath
 {
 	public static class BaseMath {
-		public static float PI = 3.141f;
+		public static float PI = 3.1415f;
         public static float Clamp(float num, float min, float max)
         {
             return Math.Min(Math.Max(num, min), max);

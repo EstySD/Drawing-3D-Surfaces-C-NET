@@ -31,14 +31,21 @@ namespace RenderSpace
 		Color iColor;
 		Vector iNormal;
 		Vector iVertex;
+		float iZValue;
 
 		public enum ShadingSetting
 		{
 			Carcass,
 			Flat,
-			FlatZ,
 			Gouraud,
 			Phong
+		}
+		public struct Fragment
+		{
+			public int i;
+			public int j;
+			public Color color;
+			public float ZValue;
 		}
 		public Shader(ShadingSetting shading)
 		{
@@ -70,6 +77,14 @@ namespace RenderSpace
 			CenterX = bmpHeight / 2;
 			CenterY = bmpWidth / 2;
 			return new Point(Convert.ToInt32(vec.x * CenterX + CenterX), (int)(-vec.y * CenterY + CenterY));
+		}
+		private Color ScaleColor(Color color, float scale)
+		{
+			return Color.FromArgb(255,
+				Convert.ToInt16(BaseMath.Clamp(color.R*scale, 0, 255)),
+				Convert.ToInt16(BaseMath.Clamp(color.G * scale, 0, 255)),
+				Convert.ToInt16(BaseMath.Clamp(color.B * scale, 0, 255))
+			);
 		}
 		public void setTri(Vector[] vertices, Vector[] verNormals, Vector triNormal)
 		{
@@ -126,20 +141,12 @@ namespace RenderSpace
 			for (int i = 0; i < 3; i++)
 			{
 				lightStrength = calculateLightStrength(vertices[i], verNormals[i]);
-				verColors[i] = Color.FromArgb(255,
-					Convert.ToInt16(BaseMath.Clamp(color.R * lightStrength, 0, 255)),
-					Convert.ToInt16(BaseMath.Clamp(color.G * lightStrength, 0, 255)),
-					Convert.ToInt16(BaseMath.Clamp(color.B * lightStrength, 0, 255))
-				);
+				verColors[i] = ScaleColor(color, lightStrength);
 			}
 
 
 			lightStrength = calculateLightStrength(Vector.center(vertices[0], vertices[1], vertices[2]), triNormal);
-			triColor = Color.FromArgb(255,
-				Convert.ToInt16(BaseMath.Clamp(color.R * lightStrength, 0, 255)),
-				Convert.ToInt16(BaseMath.Clamp(color.G * lightStrength, 0, 255)),
-				Convert.ToInt16(BaseMath.Clamp(color.B * lightStrength, 0, 255))
-				);
+			triColor = ScaleColor(color, lightStrength);
 		}
 
 		void interpolate(Point p)
@@ -173,29 +180,30 @@ namespace RenderSpace
 				vertices[0].z * W1 + vertices[1].z * W2 + vertices[2].z * W3
 				);
 		}
-		public Color fragmentShader(Point p, int lBorder, int rBorder)
+		public Fragment fragmentShader(Point p, int lBorder, int rBorder)
 		{
+			Fragment fragment = new Fragment();
+			fragment.i = p.X; fragment.j = p.Y;
+			fragment.color = Color.Transparent;
+			interpolate(p);
+			fragment.ZValue = iVertex.z;
 			switch (shading)
 			{
 				case ShadingSetting.Flat:
-					return triColor;
+					fragment.color = triColor;
+					break;
 				case ShadingSetting.Gouraud:
-					interpolate(p);
-					return iColor;
+					fragment.color = iColor;
+					break;
 				case ShadingSetting.Phong:
-					interpolate(p);
 					float lightStrength = calculateLightStrength(iVertex, iNormal);
-					return Color.FromArgb(255,
-						Convert.ToInt16(BaseMath.Clamp(baseColor.R* lightStrength, 0, 255)),
-						Convert.ToInt16(BaseMath.Clamp(baseColor.G * lightStrength, 0, 255)),
-						Convert.ToInt16(BaseMath.Clamp(baseColor.B * lightStrength, 0, 255))
-						);
-				case ShadingSetting.FlatZ: break;
+					fragment.color = ScaleColor(baseColor, lightStrength);
+					break;
 				case ShadingSetting.Carcass:
-					if (p.X == lBorder || p.X == rBorder || p.Y == points[2].Y) return triColor; 
+					if (p.X == lBorder || p.X == rBorder || p.Y == points[2].Y) fragment.color = triColor; 
 					break;
 			}
-			return Color.Transparent;
+			return fragment;
 		}
 		float calculateLightStrength(Vector t, Vector normal)
 		{
@@ -213,6 +221,10 @@ namespace RenderSpace
 
 
 			return ambient + diffuse +specular;
+		}
+		float calculateZValue()
+		{
+			return 0;
 		}
 		public Point[] GetPoints()
 		{
