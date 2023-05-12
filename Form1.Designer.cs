@@ -153,6 +153,11 @@
 			this.l_CA_Max = new System.Windows.Forms.Label();
 			this.l_CA_Min = new System.Windows.Forms.Label();
 			this.trackBarCA = new System.Windows.Forms.TrackBar();
+			this.groupBoxSurface = new System.Windows.Forms.GroupBox();
+			this.radioButtonSphere = new System.Windows.Forms.RadioButton();
+			this.radioButtonCube = new System.Windows.Forms.RadioButton();
+			this.radioButtonTorus = new System.Windows.Forms.RadioButton();
+			this.radioButtonMebious = new System.Windows.Forms.RadioButton();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.groupBox1.SuspendLayout();
 			this.groupBox7.SuspendLayout();
@@ -217,6 +222,7 @@
 			this.groupBox26.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDownCA)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.trackBarCA)).BeginInit();
+			this.groupBoxSurface.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// pictureBox1
@@ -1205,9 +1211,9 @@
 			this.label2.AutoSize = true;
 			this.label2.Location = new System.Drawing.Point(86, 16);
 			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(37, 13);
+			this.label2.Size = new System.Drawing.Size(14, 13);
 			this.label2.TabIndex = 5;
-			this.label2.Text = "ZLight";
+			this.label2.Text = "Z";
 			// 
 			// l_ZL_Max
 			// 
@@ -1272,9 +1278,9 @@
 			this.label8.AutoSize = true;
 			this.label8.Location = new System.Drawing.Point(86, 16);
 			this.label8.Name = "label8";
-			this.label8.Size = new System.Drawing.Size(37, 13);
+			this.label8.Size = new System.Drawing.Size(14, 13);
 			this.label8.TabIndex = 5;
-			this.label8.Text = "YLight";
+			this.label8.Text = "Y";
 			// 
 			// l_YL_Max
 			// 
@@ -1334,9 +1340,9 @@
 			this.XLight.AutoSize = true;
 			this.XLight.Location = new System.Drawing.Point(85, 11);
 			this.XLight.Name = "XLight";
-			this.XLight.Size = new System.Drawing.Size(37, 13);
+			this.XLight.Size = new System.Drawing.Size(14, 13);
 			this.XLight.TabIndex = 5;
-			this.XLight.Text = "XLight";
+			this.XLight.Text = "X";
 			// 
 			// l_XL_Max
 			// 
@@ -1570,11 +1576,73 @@
 			this.trackBarCA.Size = new System.Drawing.Size(186, 45);
 			this.trackBarCA.TabIndex = 0;
 			// 
+			// groupBoxSurface
+			// 
+			this.groupBoxSurface.Controls.Add(this.radioButtonMebious);
+			this.groupBoxSurface.Controls.Add(this.radioButtonTorus);
+			this.groupBoxSurface.Controls.Add(this.radioButtonSphere);
+			this.groupBoxSurface.Controls.Add(this.radioButtonCube);
+			this.groupBoxSurface.Location = new System.Drawing.Point(20, 524);
+			this.groupBoxSurface.Margin = new System.Windows.Forms.Padding(2);
+			this.groupBoxSurface.Name = "groupBoxSurface";
+			this.groupBoxSurface.Padding = new System.Windows.Forms.Padding(2);
+			this.groupBoxSurface.Size = new System.Drawing.Size(509, 53);
+			this.groupBoxSurface.TabIndex = 27;
+			this.groupBoxSurface.TabStop = false;
+			this.groupBoxSurface.Text = "Поверхность";
+			// 
+			// radioButtonSphere
+			// 
+			this.radioButtonSphere.AutoSize = true;
+			this.radioButtonSphere.Checked = true;
+			this.radioButtonSphere.Location = new System.Drawing.Point(70, 17);
+			this.radioButtonSphere.Margin = new System.Windows.Forms.Padding(2);
+			this.radioButtonSphere.Name = "radioButtonSphere";
+			this.radioButtonSphere.Size = new System.Drawing.Size(58, 17);
+			this.radioButtonSphere.TabIndex = 20;
+			this.radioButtonSphere.TabStop = true;
+			this.radioButtonSphere.Text = "Сфера";
+			this.radioButtonSphere.UseVisualStyleBackColor = true;
+			// 
+			// radioButtonCube
+			// 
+			this.radioButtonCube.AutoSize = true;
+			this.radioButtonCube.Location = new System.Drawing.Point(4, 17);
+			this.radioButtonCube.Margin = new System.Windows.Forms.Padding(2);
+			this.radioButtonCube.Name = "radioButtonCube";
+			this.radioButtonCube.Size = new System.Drawing.Size(43, 17);
+			this.radioButtonCube.TabIndex = 16;
+			this.radioButtonCube.Text = "Куб";
+			this.radioButtonCube.UseVisualStyleBackColor = true;
+			// 
+			// radioButtonTorus
+			// 
+			this.radioButtonTorus.AutoSize = true;
+			this.radioButtonTorus.Location = new System.Drawing.Point(132, 17);
+			this.radioButtonTorus.Margin = new System.Windows.Forms.Padding(2);
+			this.radioButtonTorus.Name = "radioButtonTorus";
+			this.radioButtonTorus.Size = new System.Drawing.Size(44, 17);
+			this.radioButtonTorus.TabIndex = 21;
+			this.radioButtonTorus.Text = "Тор";
+			this.radioButtonTorus.UseVisualStyleBackColor = true;
+			// 
+			// radioButtonMebious
+			// 
+			this.radioButtonMebious.AutoSize = true;
+			this.radioButtonMebious.Location = new System.Drawing.Point(180, 17);
+			this.radioButtonMebious.Margin = new System.Windows.Forms.Padding(2);
+			this.radioButtonMebious.Name = "radioButtonMebious";
+			this.radioButtonMebious.Size = new System.Drawing.Size(103, 17);
+			this.radioButtonMebious.TabIndex = 22;
+			this.radioButtonMebious.Text = "Лента Мебиуса";
+			this.radioButtonMebious.UseVisualStyleBackColor = true;
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1367, 586);
+			this.Controls.Add(this.groupBoxSurface);
 			this.Controls.Add(this.groupBox23);
 			this.Controls.Add(this.groupBox9);
 			this.Controls.Add(this.groupBox11);
@@ -1675,6 +1743,8 @@
 			this.groupBox26.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDownCA)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.trackBarCA)).EndInit();
+			this.groupBoxSurface.ResumeLayout(false);
+			this.groupBoxSurface.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -1806,6 +1876,11 @@
 		private System.Windows.Forms.Label l_CA_Max;
 		private System.Windows.Forms.Label l_CA_Min;
 		private System.Windows.Forms.TrackBar trackBarCA;
+		private System.Windows.Forms.GroupBox groupBoxSurface;
+		private System.Windows.Forms.RadioButton radioButtonMebious;
+		private System.Windows.Forms.RadioButton radioButtonTorus;
+		private System.Windows.Forms.RadioButton radioButtonSphere;
+		private System.Windows.Forms.RadioButton radioButtonCube;
 	}
 }
 

@@ -29,11 +29,11 @@ namespace visualisation_lr1
 		int xOld, yOld, zOld;
 
 		MeshInfo meshInfo = new MeshInfo();
-        float[,] transformMatrix = Matrix.multiplyMatrix(Matrix.getScale(0.25f, 0.25f, 0.25f), Matrix.getUnit());
+        float[,] transformMatrix = Matrix.getScale(0.9f, 0.9f, 0.9f);
 
 
-        surface surf = new surface(0, 360, 0, 360);
-
+        surface surf = new surface(0, 360, -90, 90);
+        Mesh.MeshInfo.MeshType meshType = MeshInfo.MeshType.Sphere;
         private void Form1_Load(object sender, EventArgs e)
         {
             //применение обновления кнопок и трекбаров
@@ -57,20 +57,26 @@ namespace visualisation_lr1
 			CA = new TrackHandler(this, "CA", 0, 100, 10);
 			CD = new TrackHandler(this, "CD", 0, 100, 50);
 			CS = new TrackHandler(this, "CS", 0, 100, 10);
+            //выбор закраски
 			foreach (Control c in this.groupBoxFill.Controls)
             {
                 RadioButton rb = c as RadioButton;
                 if (rb!=null) rb.CheckedChanged += rbUpdate;
             }
+			foreach (Control c in this.groupBoxSurface.Controls)
+			{
+				RadioButton rb = c as RadioButton;
+				if (rb != null) rb.CheckedChanged += rbUpdate;
+			}
 
-            canvas_update(null, null);
+			canvas_update(null, null);
 		}
 
         public void canvas_update(object sender, EventArgs e)
-        {
-            //обновление значений
+		{
+			//обновление значений
 
-            Color color = Color.FromArgb(255, Rc.value, Gc.value, Bc.value);
+			Color color = Color.FromArgb(255, Rc.value, Gc.value, Bc.value);
             if (fColorChoosed)
 				frontColorButton.BackColor = fColor = color;
             else backColorButton.BackColor = bColor = color;
@@ -79,7 +85,7 @@ namespace visualisation_lr1
             meshInfo.setInterval(BaseMath.ConvertToRad(surf.umin), BaseMath.ConvertToRad(uMaxc.value),
 				BaseMath.ConvertToRad(surf.vmin), BaseMath.ConvertToRad(vMaxc.value));
             meshInfo.setSettings(surf, N1c.value, N2c.value, (float)(R1c.value) / 100, (float)(R2c.value) / 100);
-            meshInfo.calculate(MeshInfo.MeshType.Torus);
+            meshInfo.calculate(meshType);
 
 			Vector[] vertices = meshInfo.getVertices();
             int[,] indices = meshInfo.getIndices();
@@ -106,12 +112,13 @@ namespace visualisation_lr1
 			shader.updateLightStrength((float)CA.value/100, (float)CD.value / 100, (float)CS.value / 100);
 			shader.updateCamera(new Vector(0, 0, 0), new Vector(0, 0, -1));
 
-			render.renderPass(Renderer.CullSetting.FrontFace, shader);
+            render.renderPass(Renderer.CullSetting.FrontFace, shader);
 			render.renderPass(Renderer.CullSetting.BackFace, shader);
-			render.DrawAxis(0.75f, 2);
+			render.DrawAxis(0.95f, 2);
 			//вывод
 			pictureBox1.Refresh();
-            pictureBox1.Image = render.getImage();
+			pictureBox1.Image = null;
+			pictureBox1.Image = render.getImage();
             this.Update();
         }
 
@@ -153,38 +160,67 @@ namespace visualisation_lr1
 					case "radioButtonPhong":
 						shadingSetting = Shader.ShadingSetting.Phong;
 						break;
+                    case "radioButtonCube":
+                        meshType = MeshInfo.MeshType.Cube;
 
+						uMaxc.resize(0, 0, 0);
+						vMaxc.resize(0, 0, 0);
+						break;
+					case "radioButtonSphere":
+                        surf.resize(0, 360, -90, 90);
+                        uMaxc.resize(0, 360, 360);
+                        vMaxc.resize(-90, 90, 90);
+						meshType = MeshInfo.MeshType.Sphere;
+						break;
+					case "radioButtonTorus":
+						surf.resize(0, 360, 0, 360);
+						uMaxc.resize(0, 360, 360);
+						vMaxc.resize(0, 360, 360);
+						meshType = MeshInfo.MeshType.Torus;
+						break;
+					case "radioButtonMebious":
+						surf.resize(0, 360, -180, 180);
+						uMaxc.resize(0, 360, 360);
+						vMaxc.resize(-180, 180, 180);
+						meshType = MeshInfo.MeshType.Mebious;
+						break;
 				}
             };
-            canvas_update(null, null);
+			btn.Validated += canvas_update;
 		}
 		class TrackHandler
         {
             public int value { get; set; }
             System.Windows.Forms.TrackBar tBar;
             System.Windows.Forms.NumericUpDown numUD;
-            public TrackHandler(Form1 form1, string name, int min, int max, int defValue)
+            System.Windows.Forms.Label minL, maxL;
+
+			public TrackHandler(Form1 form1, string name, int min, int max, int defValue)
             {
                 tBar = (System.Windows.Forms.TrackBar)form1.Controls.Find("trackBar" + name, true)[0];
                 numUD = (System.Windows.Forms.NumericUpDown)form1.Controls.Find("numericUpDown" + name, true)[0];
-				tBar.Minimum = min;
-				tBar.Maximum = max;
-				numUD.Minimum = min;
-				numUD.Maximum = max;
-                tBar.Value = defValue;
-                numUD.Value = defValue;
+				minL = (System.Windows.Forms.Label)form1.Controls.Find("l_" + name + "_Min", true)[0];
+				maxL = (System.Windows.Forms.Label)form1.Controls.Find("l_" + name + "_Max", true)[0];
+				resize(min, max, defValue);
 
 				tBar.Scroll += tBarUpdate;
                 numUD.ValueChanged += numUDUpdate;
                 numUD.ValueChanged += form1.canvas_update;
 
-                System.Windows.Forms.Label minL = (System.Windows.Forms.Label)form1.Controls.Find("l_" + name + "_Min", true)[0];
-                System.Windows.Forms.Label maxL = (System.Windows.Forms.Label)form1.Controls.Find("l_" + name + "_Max", true)[0];
-                minL.Text = Convert.ToString(min);
-                maxL.Text = Convert.ToString(max);
                 tBarUpdate(null, null);
                 numUDUpdate(null, null);
             }
+            public void resize(int min, int max, int defValue)
+            {
+				tBar.Minimum = min;
+				tBar.Maximum = max;
+				numUD.Minimum = min;
+				numUD.Maximum = max;
+				tBar.Value = defValue;
+				numUD.Value = defValue;
+				minL.Text = Convert.ToString(min);
+				maxL.Text = Convert.ToString(max);
+			}
             void tBarUpdate(object sender, EventArgs e)
             {
                 this.value = tBar.Value;

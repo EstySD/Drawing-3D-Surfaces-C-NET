@@ -102,30 +102,30 @@ namespace RenderSpace
             {
                 verNormals[i] = new Vector(verNormals[i].x / verTrisCount[i], verNormals[i].y / verTrisCount[i], verNormals[i].z / verTrisCount[i]).normalise();
             }
-            //прорисовка треугольников
-            for (int i = 0; i < indices.GetLength(0); i++)
-            {
-                if (Vector.dotProduct(triNormals[i], shader.cameraDir) > 0) continue;
-                Color baseColor = fColor;
-                if (cull == CullSetting.FrontFace) baseColor = bColor;
-                DrawTri(baseColor,
-                    new Vector[3]{
-					vertices[indices[i, 0]],
-                    vertices[indices[i, 1]],
-                    vertices[indices[i, 2]]
-                    },
-                    triNormals[i],
-                    new Vector[3]
-                    {
-						verNormals[indices[i, 0]],
-						verNormals[indices[i, 1]],
-						verNormals[indices[i, 2]]
+			//прорисовка треугольников
+			for (int i = 0; i < indices.GetLength(0); i++)
+			{
+				if (Vector.dotProduct(triNormals[i], shader.cameraDir) > 0) continue;
+				Color baseColor = fColor;
+				if (cull == CullSetting.FrontFace) baseColor = bColor;
+				DrawTri(baseColor,
+					new Vector[3]{
+					 vertices[indices[i, 0]],
+					 vertices[indices[i, 1]],
+					 vertices[indices[i, 2]]
+					},
+					triNormals[i],
+					new Vector[3]
+					{
+						 verNormals[indices[i, 0]],
+						 verNormals[indices[i, 1]],
+						 verNormals[indices[i, 2]]
 					}
 					);
 			}
-            /*Parallel.For(0, indices.GetLength(0),
-                i =>
-                {
+			/*Parallel.For(0, indices.GetLength(0),
+				i =>
+				{
 					if (Vector.dotProduct(triNormals[i], shader.cameraDir) > 0) return;
 					Color baseColor = fColor;
 					if (cull == CullSetting.FrontFace) baseColor = bColor;

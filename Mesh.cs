@@ -134,10 +134,14 @@ namespace Mesh
 	public class surface
 	{
 
-		public int vmin, vmax, umin, umax;
+		public int vmin, vmax, umin, umax; // в градусах
 		float u;
 		float v;
 		public surface(int umin, int umax, int vmin, int vmax)
+		{
+			resize(umin, umax, vmin, vmax);
+		}
+		public void resize(int umin, int umax, int vmin, int vmax)
 		{
 			this.umin = umin;
 			this.umax = umax;
@@ -168,16 +172,18 @@ namespace Mesh
 		private Vector torus()
 		{
 			return new Vector(
-				(float)((Math.Cos(u) * (Math.Cos(v) + 3.0f))),
-				(float)((Math.Sin(u) * (Math.Cos(v) + 3.0f))),
-				(float)Math.Sin(v));
+				(float)((Math.Cos(u) * (0.4f*Math.Cos(v) + 0.75f))),
+				(float)((Math.Sin(u) * (0.4f*Math.Cos(v) + 0.75f))),
+				(float)(Math.Sin(v)*0.4f)
+				);
 		}
 		private Vector mebious()
 		{
 			return new Vector(
-				(float)((1 + v / 2 * Math.Cos(u / 2)) * Math.Cos(u)),
-				(float)((1 + v / 2 * Math.Cos(u / 2)) * Math.Sin(u)),
-				(float)v / 2);
+				(float)((1 + v / 2 * Math.Cos(u / 2)) * Math.Cos(u)*0.5f),
+				(float)((1 + v / 2 * Math.Cos(u / 2)) * Math.Sin(u)*0.5f),
+				(float)((v / 2)*Math.Sin(u/2)*0.5f)
+				);
 		}
 	}
 }

@@ -200,7 +200,7 @@ namespace RenderSpace
 					fragment.color = ScaleColor(baseColor, lightStrength);
 					break;
 				case ShadingSetting.Carcass:
-					if (p.X == lBorder || p.X == rBorder || p.Y == points[2].Y) fragment.color = triColor; 
+					if (p.X == lBorder || p.X == rBorder|| p.X == lBorder+1 || p.X == rBorder-1) fragment.color = triColor; 
 					break;
 			}
 			return fragment;
